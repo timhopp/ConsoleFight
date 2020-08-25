@@ -4,7 +4,7 @@ using Demo.Interfaces;
 
 namespace Demo.Models
 {
-  class Player : IPlayer
+  class Enemy : ICharacter
   {
     public List<IItem> Inventory { get; set; }
 
@@ -28,11 +28,11 @@ namespace Demo.Models
       Health -= amount;
     }
 
-    public Player()
+    public Enemy(string name, int health)
     {
-      Console.WriteLine("Hey Listen..... What is your name?");
-      Name = Console.ReadLine();
-      Health = 100;
+      Console.WriteLine("Arrrgh I'm the Enemy");
+      Health = health;
+      Name = name;
     }
 
   }

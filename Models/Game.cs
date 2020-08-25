@@ -10,19 +10,40 @@ namespace Demo.Models
     private IRoom CurrentRoom { get; set; }
     private Player CurrentPlayer { get; set; }
 
+    private Enemy CurrentEnemy { get; set; }
+
+    private Weapon PlayerWeapon { get; set; }
+
+
     void Setup()
     {
       // Do the things like create enemies and rooms and assign items to enemies
+      CurrentEnemy = new Enemy("The Goblin Witch", 30);
+      
+      var Sword = new Weapon("The Sword", 20, 15);
+      CurrentEnemy.EquipWeapon(Sword);
+      // var knight = new Enemy();
+      // var monster = new Enemy();
+      // var empty = new Enemy();
+
+
+      PlayerWeapon = new Weapon("The Hammer", 25, 20);
 
       var room1 = new Room("The Starting Room", "You awake to the sound of violence coming from the north, west to the south it is suspiciously quiet, An acrid smell permeates from the south.");
-
       var room2 = new Room("North Room", "its bland but there is a grotesque goblin staring at you");
+      var room3 = new Room("The West Wing", "You find yourself in a dark space lit by candles, something dark shuffles in the corner...");
       var poisonTrapRoom = new TrapRoom("Poison Room", "smells bad", 300);
       DeathRoom = poisonTrapRoom;
       room1.Exits.Add("north", room2);
+      room1.Exits.Add("south", DeathRoom);
+      room1.Exits.Add("west", room3);
       room2.Exits.Add("south", room1);
+      
 
+
+  
       CurrentRoom = room1;
+
       Start();
     }
 
@@ -30,6 +51,7 @@ namespace Demo.Models
     {
       // Get Player Info
       CurrentPlayer = new Player();
+      CurrentPlayer.EquipWeapon(PlayerWeapon);
 
       Play();
     }
@@ -60,6 +82,19 @@ namespace Demo.Models
       CurrentRoom.OnPlayerEnter(CurrentPlayer);
     }
 
+    void Attack()
+    {
+      CurrentEnemy.TakeDamage(20);
+      CurrentPlayer.TakeDamage(15);
+      System.Console.WriteLine("The Goblins Health is " + CurrentEnemy.Health + "& Your Health" + CurrentPlayer.Health);
+
+      if(CurrentEnemy.Health <= 0){
+        System.Console.WriteLine("The GOBLIN IS DEAD");
+      };
+
+
+    }
+
     private void HandlePlayerInput()
     {
       var playerInput = Console.ReadLine();
@@ -85,9 +120,16 @@ namespace Demo.Models
           // Help(); print all the comands
           Console.WriteLine("Bah no help here");
           break;
+        case "fight":
+          Attack();
+          System.Console.WriteLine("You attempt to strike");
+          break;
         case "q":
           Playing = false;
           break;
+        default:
+        System.Console.WriteLine("Wrong Answer, Try Again...");
+        break;
       }
     }
 
