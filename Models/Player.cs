@@ -28,10 +28,9 @@ namespace Demo.Models
       Health -= amount;
     }
 
-    public Player()
+    public Player(string name)
     {
-      Console.WriteLine("Hey Listen..... What is your name?");
-      Name = Console.ReadLine();
+      Name = name;
       Health = 100;
     }
 

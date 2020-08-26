@@ -7,11 +7,11 @@ namespace Demo.Models
 
     public int TrapDamage { get; }
 
-    public override void OnPlayerEnter(IPlayer player)
-    {
-      base.OnPlayerEnter(player);
-      player.TakeDamage(TrapDamage);
-    }
+    // public override void OnPlayerEnter(IPlayer player)
+    // {
+    //   base.OnPlayerEnter(player);
+    //   player.TakeDamage(TrapDamage);
+    // }
 
     public TrapRoom(string name, string description, int trapDamage) : base(name, description)
     {

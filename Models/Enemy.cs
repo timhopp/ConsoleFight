@@ -4,7 +4,7 @@ using Demo.Interfaces;
 
 namespace Demo.Models
 {
-  class Enemy : ICharacter
+  class Enemy : ICharacter, IEnemy
   {
     public List<IItem> Inventory { get; set; }
 
@@ -16,10 +16,12 @@ namespace Demo.Models
 
     public IWeapon Weapon { get; set; }
 
-    public void DealDamage(IEnemy player)
-    {
-      throw new NotImplementedException();
-    }
+    public List<IItem> Loot => new List<IItem>();
+
+    // public void DealDamage(IEnemy player)
+    // {
+    //   player.Health -= TakeDamage;
+    // }
 
     public void EquipWeapon(IWeapon weapon) => Weapon = weapon;
 
@@ -30,7 +32,6 @@ namespace Demo.Models
 
     public Enemy(string name, int health)
     {
-      Console.WriteLine("Arrrgh I'm the Enemy");
       Health = health;
       Name = name;
     }
